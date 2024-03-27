@@ -2,47 +2,40 @@ const Sequelize = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
-        "user", {
-            user_id: {
+        "admin_register", {
+            admin_reg_id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
             },
-            salution: {
+            first_name: {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            firstName: {
+            last_name: {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            middleName: {
+            email: {
+                type: Sequelize.STRING,
+                allowNull: true,
+                unique:true
+            },
+            phone_number: {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            lastName: {
+            password: {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            gender: {
-                type: Sequelize.STRING,
-                allowNull: true,
-            },
-            dob: {
+            confirmPassword: {
                 type: Sequelize.DATEONLY,
                 allowNull: true,
             },
             is_deleted: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false
-            },
-            email: {
-                type: Sequelize.STRING,
-                allowNull: true
-            },
-            phone_number: {
-                type: Sequelize.STRING,
-                allowNull: true
             },
             
              // registration_token is used to send the push notification from mobile side 
@@ -54,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
          {
             timestamps: true,
             indexes: [{
-                fields: ["user_id", "email", "phone_number"],
+                fields: ["admin_reg_id", "email", "phone_number"],
             },],
           }
         );

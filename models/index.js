@@ -12,6 +12,8 @@ const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PASSW
 });
 
 const userTable = require("../apps/customers/models/user.model")(sequelize, Sequelize);
+const adminRegistertable = require('../apps/customers/models/admin_register.model')(sequelize,Sequelize)
+const adminLoginTable = require('../apps/customers/models/admin_login.model')(sequelize,Sequelize)
 
 sequelize
   .authenticate()
@@ -29,5 +31,7 @@ sequelize
 
 
 module.exports = {
-    userTable
+    userTable,
+    adminRegistertable,
+    adminLoginTable
 }
