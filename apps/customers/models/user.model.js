@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: Sequelize.STRING,
                 allowNull: true
             },
+            age: {
+                type: Sequelize.STRING,
+                allowNull: true
+            },
             
              // registration_token is used to send the push notification from mobile side 
             registration_token: {
