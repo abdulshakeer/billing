@@ -8,13 +8,13 @@ const jwt = require('jsonwebtoken');
 async function _getAllUsers(req) {
   const { limit, offset } = req.query;
   limit ? limit : 0;
-  var results = await userTable.findAll({
+  var results = await adminLoginTable.findAll({
     limit: limit,
     offset: offset,
     order: [["createdAt", "DESC"]],
   });
 
-  let totalCount = await userTable.count({
+  let totalCount = await adminLoginTable.count({
     order: [["createdAt", "DESC"]],
   });
 

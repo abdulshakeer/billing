@@ -6,10 +6,11 @@ const {
     _adminRegister,
     _adminLogin
 } = require("../../customers/services/user.service");
+const { requireSignIn } = require('../../../common-middleware/index')
 
 router.post('/register', adminRegister);
 router.post('/login', adminLogin);
-router.get('/users', getAllUsers);
+router.get('/users', requireSignIn, getAllUsers);
 
 module.exports = router;
 
