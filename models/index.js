@@ -1,14 +1,15 @@
 const { Sequelize } = require("sequelize");
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_DATABASE, DB_PORT } = process.env;
-
-// Create Sequelize instance
-const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PASSWORD, {
-  host: POSTGRES_HOST,
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
+//
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
   dialect: "postgres",
-  port: DB_PORT || 5432, // Default PostgreSQL port is 5432
+  port: DB_PORT,
   dialectOptions: {
-    ssl: { require: true, rejectUnauthorized: false } // Enable SSL for secure connections
-  },
+    ssl: {
+      rejectUnauthorized: false
+    },
+  }
 });
 
 const adminRegistertable = require('../apps/customers/models/admin_register.model')(sequelize,Sequelize)
