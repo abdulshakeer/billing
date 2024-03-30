@@ -32,15 +32,15 @@ async function _adminRegister(req) {
     let { first_name,last_name, email, phone_number, password, confirmPassword, registration_token } = req.body;
     let admin = await adminRegistertable.findOne( { where : { email:email }} )
     if(admin){
-      throw new Error('User Already Exist!')
+      throw ('User Already Exist!')
     }
 
     if (!email || !password) {
-      throw new Error('Missing email or password');
+      throw ('Missing email or password');
     }
 
     if (password !== confirmPassword) {
-      throw new Error('Passwords do not match');
+      throw ('Passwords do not match');
     }
     
     const saltRounds = 10; 
@@ -67,7 +67,7 @@ async function _adminRegister(req) {
       user: result
     };
   } catch (error) {
-    throw new Error('Error',error)
+    throw ('Error',error)
   }
  
 }
@@ -78,15 +78,15 @@ async function _adminLogin(req) {
     let {  email, password } = req.body;
     let admin = await adminLoginTable.findOne( { where : { email:email }} )
     if(!admin){
-      throw new Error('User Not Found!')
+      throw ('User Not Found!')
     }
 
     if (!email || !password) {
-      throw new Error('Missing email or password');
+      throw ('Missing email or password');
     }
     const isPasswordMatch = await bcrypt.compare(password, admin.password);
     if (!isPasswordMatch) {
-      throw new Error('Invalid email or password');
+      throw ('Invalid email or password');
     }
 
     const token = jwt.sign({ admin_id: admin.admin_login_id }, process.env.TOKEN_SECRET, { expiresIn: process.env.TOKEN_LIFE });
@@ -97,7 +97,7 @@ async function _adminLogin(req) {
       result: admin
     };    
   } catch (error) {
-    throw new Error('Error',error)
+    throw ('Error',error)
   }
  
 }
