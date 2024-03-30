@@ -14,7 +14,7 @@ async function _clientRegister(req) {
         const salt = await bcrypt.genSalt(saltRounds);
         const hashedPassword = await bcrypt.hash(random_password, salt);
 
-        const newClient = await clientTable.create({
+        let newClient = await clientTable.create({
             client_name,
             client_password:hashedPassword,
             client_phone_number,
@@ -22,6 +22,7 @@ async function _clientRegister(req) {
             business_name,
             address,
         });
+        newClient.client_password = random_password;
         return await {
             rseult:newClient
         }
@@ -72,7 +73,7 @@ async function _clientUpdate(req){
     const saltRounds = 10; 
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(random_password, salt);
-    return await clientTable.update({
+    let result = await clientTable.update({
         client_name,
         client_password:hashedPassword,
         client_phone_number,
@@ -80,7 +81,10 @@ async function _clientUpdate(req){
         business_name,
         address,
     },{ where :{ client_id : req.params.id }})
-
+    result.client_password = hashedPassword;
+    return {
+        data:result
+    }
 }
 
 async function _clientDelete(req){

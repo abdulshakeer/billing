@@ -11,7 +11,6 @@ const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PASSW
   },
 });
 
-const userTable = require("../apps/customers/models/user.model")(sequelize, Sequelize);
 const adminRegistertable = require('../apps/customers/models/admin_register.model')(sequelize,Sequelize)
 const adminLoginTable = require('../apps/customers/models/admin_login.model')(sequelize,Sequelize)
 const clientTable = require('../apps/customers/models/client.model')(sequelize,Sequelize)
@@ -32,7 +31,6 @@ sequelize
 
 
 module.exports = {
-    userTable,
     adminRegistertable,
     adminLoginTable,
     clientTable
